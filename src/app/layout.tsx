@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Og Image Gen",
   description: "Generate Image on the fly",
+  openGraph: {
+    images: "https://og.anit.dev/og?title=Open Graph Image Generator&type=Tool",
+  },
 };
 
 export default function RootLayout({

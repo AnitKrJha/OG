@@ -1,9 +1,5 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
+  padding: 6rem 2rem;
   min-height: 100vh;
   background: linear-gradient(
     to right,
@@ -33,7 +29,7 @@
 
 .description p {
   position: relative;
-  margin: 0;
+  margin-block: 1rem;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);

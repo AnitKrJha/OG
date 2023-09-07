@@ -6,6 +6,16 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.description}>
         <h2>Og Image Generator for Anit's projects</h2>
+        <code
+          style={{
+            background: "white",
+            marginTop: "10px",
+            display: "inline-block",
+            padding: "10px",
+          }}
+        >
+          go to "https://og.anit.dev/og?title=your title&type=your type"
+        </code>
         <p>
           Made with love &nbsp;
           <br />
