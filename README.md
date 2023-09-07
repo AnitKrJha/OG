@@ -8,7 +8,7 @@ Welcome to my OG Image Generator for my projects! This tool helps me generate Op
 
 - **URL Parameters**: This OG image generator allows me to customize the image content dynamically using URL parameters. I can specify the `title` and `type` parameters in the URL to generate unique OG images for my projects. For example:
   ```
-  https://og.anit.dev/og-image/?title=YourTitle&type=YourType
+  https://og.anit.dev/og/?title=YourTitle&type=YourType
   ```
 
 - **Base URL**: I've hosted this OG image generator on [anit.dev](https://og.anit.dev) to seamlessly integrate it into my project's infrastructure.
