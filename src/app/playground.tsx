@@ -3,7 +3,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { LIMITS } from "@/lib/params";
 
-type Variant = "default" | "profile";
 type ThemeName = "dark" | "light";
 
 interface Fields {
@@ -12,7 +11,6 @@ interface Fields {
   description: string;
   meta: string;
   image: string;
-  variant: Variant;
   theme: ThemeName;
 }
 
@@ -22,7 +20,6 @@ const EMPTY: Fields = {
   description: "",
   meta: "",
   image: "",
-  variant: "default",
   theme: "dark",
 };
 
@@ -47,11 +44,11 @@ const PRESETS: Array<{ name: string; fields: Partial<Fields> }> = [
     },
   },
   {
-    name: "Profile",
+    name: "Home",
     fields: {
-      variant: "profile",
-      description: "Software engineer building calm, fast interfaces for the web.",
-      meta: "Writing, projects and notes",
+      title: "Anit Jha",
+      description: "DevOps, Tools & Automation Engineer at Apple",
+      meta: "Kubernetes · Crossplane · Go · React",
     },
   },
   { name: "Section", fields: { title: "Writing", type: "Blog" } },
@@ -63,7 +60,6 @@ function buildQuery(f: Fields) {
     const value = f[key].trim();
     if (value) q.set(key, value);
   }
-  if (f.variant !== "default") q.set("variant", f.variant);
   if (f.theme !== "dark") q.set("theme", f.theme);
   const s = q.toString().replace(/\+/g, "%20");
   return s ? `/og?${s}` : "/og";
@@ -243,7 +239,7 @@ export function Playground() {
             id={`${id}-description`}
             rows={3}
             value={fields.description}
-            placeholder={fields.variant === "profile" ? "Role line, e.g. Software engineer" : "Optional supporting line"}
+            placeholder="Optional supporting line"
             onChange={(e) => set("description")(e.target.value)}
           />
         </Field>
@@ -264,22 +260,11 @@ export function Playground() {
             value={fields.image}
             placeholder="https://anit.dev/…/cover.png"
             aria-invalid={imageInvalid || undefined}
-            disabled={fields.variant === "profile"}
             onChange={(e) => set("image")(e.target.value)}
           />
         </Field>
 
         <div className="row">
-          <Segmented
-            label="Variant"
-            name={`${id}-variant`}
-            value={fields.variant}
-            options={[
-              ["default", "Default"],
-              ["profile", "Profile"],
-            ]}
-            onChange={set("variant")}
-          />
           <Segmented
             label="Theme"
             name={`${id}-theme`}

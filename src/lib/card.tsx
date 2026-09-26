@@ -13,8 +13,6 @@ const PAD_Y = 60;
 export interface CardAssets {
   /** Data URL of the cover image, already fetched and validated. */
   imageSrc?: string;
-  /** Data URL of the portrait used by the profile variant. */
-  portraitSrc?: string;
 }
 
 export type CardProps = CardParams & CardAssets;
@@ -46,22 +44,15 @@ const tight = (size: number, em = -0.035) => Math.round(size * em * 100) / 100;
 
 /* ─── Pieces ───────────────────────────────────────────────────────────── */
 
-function Aurora({ t, profile }: { t: Theme; profile?: boolean }) {
+function Aurora({ t }: { t: Theme }) {
   const [a1, a2, a3, a4] = t.aurora;
   const s = t.auroraOpacity;
-  const blobs = profile
-    ? [
-        softBlob(a1, "46% 70%", "10% 8%", s),
-        softBlob(a2, "38% 58%", "46% 0%", s * 0.95),
-        softBlob(a3, "44% 72%", "92% 14%", s),
-        softBlob(a4, "50% 48%", "34% 40%", s * 0.8),
-      ]
-    : [
-        softBlob(a1, "44% 68%", "12% 6%", s),
-        softBlob(a2, "36% 56%", "50% -4%", s * 0.95),
-        softBlob(a3, "42% 66%", "90% 10%", s),
-        softBlob(a4, "50% 46%", "36% 38%", s * 0.8),
-      ];
+  const blobs = [
+    softBlob(a1, "44% 68%", "12% 6%", s),
+    softBlob(a2, "36% 56%", "50% -4%", s * 0.95),
+    softBlob(a3, "42% 66%", "90% 10%", s),
+    softBlob(a4, "50% 46%", "36% 38%", s * 0.8),
+  ];
 
   return (
     <div
@@ -287,7 +278,7 @@ function Frame({
 
 /* ─── Layouts ──────────────────────────────────────────────────────────── */
 
-function Shell({ t, profile, children }: { t: Theme; profile?: boolean; children: ReactNode }) {
+function Shell({ t, children }: { t: Theme; children: ReactNode }) {
   return (
     <div
       style={{
@@ -300,7 +291,7 @@ function Shell({ t, profile, children }: { t: Theme; profile?: boolean; children
         color: t.ink2,
       }}
     >
-      <Aurora t={t} profile={profile} />
+      <Aurora t={t} />
       <div
         style={{
           position: "relative",
@@ -397,73 +388,8 @@ function DefaultCard(p: CardProps) {
   );
 }
 
-function ProfileCard(p: CardProps) {
-  const t = themes[p.theme];
-  const size = titleSize(p.title.length, true) + 18;
-  const portraitH = 438;
-  const portraitW = Math.round((portraitH * 396) / 540);
-
-  return (
-    <Shell t={t} profile>
-      <div style={{ display: "flex", flex: 1 }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            paddingRight: 56,
-          }}
-        >
-          <TopRow t={t} type={p.type} />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              flex: 1,
-            }}
-          >
-            <div
-              style={blockText({
-                fontSize: size,
-                fontWeight: 700,
-                lineHeight: 1.0,
-                letterSpacing: tight(size, -0.04),
-                color: t.ink,
-                lineClamp: 3,
-              })}
-            >
-              {p.title}
-            </div>
-            {p.description ? (
-              <div
-                style={blockText({
-                  marginTop: 24,
-                  fontSize: 31,
-                  lineHeight: 1.36,
-                  letterSpacing: tight(31, -0.012),
-                  color: t.ink2,
-                  lineClamp: 3,
-                })}
-              >
-                {p.description}
-              </div>
-            ) : null}
-          </div>
-          <Footer t={t} meta={p.meta} name={false} />
-        </div>
-        {p.portraitSrc ? (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Frame t={t} src={p.portraitSrc} width={portraitW} height={portraitH} radius={26} />
-          </div>
-        ) : null}
-      </div>
-    </Shell>
-  );
-}
-
 export function Card(props: CardProps) {
-  return props.variant === "profile" ? <ProfileCard {...props} /> : <DefaultCard {...props} />;
+  return <DefaultCard {...props} />;
 }
 
 /* ─── Fonts ────────────────────────────────────────────────────────────── */

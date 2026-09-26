@@ -7,7 +7,7 @@ The landing page at [og.anit.dev](https://og.anit.dev) is a playground: fill in 
 ## URL
 
 ```
-https://og.anit.dev/og?title=...&type=...&description=...&meta=...&image=...&variant=...&theme=...
+https://og.anit.dev/og?title=...&type=...&description=...&meta=...&image=...&theme=...
 ```
 
 Every parameter is optional. Output is a 1200 × 630 PNG.
@@ -19,7 +19,6 @@ Every parameter is optional. Output is a 1200 × 630 PNG.
 | `description` | Supporting line under the title. Clamped to 170 characters and 2 lines (3 next to an image). |
 | `meta` | Footer detail next to "Anit Jha", e.g. `Oct 15, 2023 · 8 min read` or `2026 · Astro, React, TypeScript`. |
 | `image` | Absolute `https` URL of a cover image, shown as a framed thumbnail on the right. Only `anit.dev`, `www.anit.dev` and `og.anit.dev` are allowed, and it must be PNG, JPEG or GIF (satori cannot decode WebP or AVIF). Fetched server side with a 2.5 s timeout; on any failure the card renders without it. |
-| `variant` | `default` or `profile`. Profile is the home page card: portrait, big name (`title`) and a role line (`description`). |
 | `theme` | `dark` (default) or `light`. |
 
 Responses are sent with `Cache-Control: public, immutable, no-transform, max-age=31536000`, so change a parameter to get a fresh image. Unexpected errors return a plain text 500.
@@ -29,7 +28,7 @@ Responses are sent with `Cache-Control: public, immutable, no-transform, max-age
 ```
 /og?title=Customising%20the%20GRUB%20theme%20on%20Fedora&type=Blog&meta=Oct%2015%2C%202023%20%C2%B7%208%20min%20read
 /og?title=SoftlyDrawn&type=Project&description=A%20portfolio%20for%20an%20illustrator.&meta=2026%20%C2%B7%20Astro&image=https%3A%2F%2Fanit.dev%2Fcover.png
-/og?variant=profile&description=Software%20engineer%20building%20calm%2C%20fast%20interfaces.
+/og?title=Anit%20Jha&description=DevOps%2C%20Tools%20%26%20Automation%20Engineer%20at%20Apple
 /og?title=Writing&type=Blog&theme=light
 /og?title=Blog&type=blogs
 ```
@@ -55,6 +54,6 @@ pnpm preview    # render sample cards to /tmp/og-preview without a server
 - `src/app/og/route.tsx`: the image route (Node.js runtime).
 - `src/lib/card.tsx`: the card JSX, type scale and layouts.
 - `src/lib/params.ts`: parsing, clamping and the image host allowlist.
-- `src/lib/assets.ts`: fonts, portrait and the guarded cover image fetch.
+- `src/lib/assets.ts`: fonts and the guarded cover image fetch.
 - `src/lib/theme.ts`: Aurora tokens converted from OKLCH to sRGB for satori.
 - `src/app/page.tsx`, `src/app/playground.tsx`: the playground.

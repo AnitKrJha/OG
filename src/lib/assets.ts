@@ -6,7 +6,6 @@ import { FONT_FILES, type FontWeightData } from "./card";
 const ASSETS_DIR = join(process.cwd(), "src", "assets");
 
 let fontsPromise: Promise<FontWeightData> | undefined;
-let portraitPromise: Promise<string> | undefined;
 
 async function readAsset(name: string) {
   const buf = await readFile(join(ASSETS_DIR, name));
@@ -27,16 +26,6 @@ export function loadFonts(): Promise<FontWeightData> {
     throw error;
   });
   return fontsPromise;
-}
-
-export function loadPortrait(): Promise<string> {
-  portraitPromise ??= readFile(join(ASSETS_DIR, "anit-portrait.jpg"))
-    .then((buf) => `data:image/jpeg;base64,${buf.toString("base64")}`)
-    .catch((error) => {
-      portraitPromise = undefined;
-      throw error;
-    });
-  return portraitPromise;
 }
 
 /** Formats satori can decode. WebP and AVIF are not supported by it. */

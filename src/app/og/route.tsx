@@ -8,9 +8,7 @@ export async function GET(request: Request) {
   try {
     const params = parseParams(new URL(request.url).searchParams);
     const imageSrc =
-      params.image && params.variant === "default"
-        ? await fetchImageAsDataUrl(params.image)
-        : undefined;
+      params.image ? await fetchImageAsDataUrl(params.image) : undefined;
 
     const png = await renderPng(params, { imageSrc });
 

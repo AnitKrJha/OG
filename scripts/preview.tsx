@@ -25,15 +25,15 @@ const samples: Record<string, string> = {
     "title=SoftlyDrawn&type=Project&description=A portfolio and commissions site for an illustrator, built to feel like a sketchbook.&meta=2026 · Astro, React, TypeScript&image=https://anit.dev/cover.jpg",
   "06-image-long":
     "title=Growth Sense: financial calculators that explain the maths behind every number&type=Project&description=Calculators for SIP, lumpsum and EMI with charts, plain language and zero sign up.&meta=2024 · Next.js, Tailwind&image=https://anit.dev/cover.jpg",
-  "07-profile":
-    "variant=profile&description=Software engineer building calm, fast interfaces for the web.&meta=Writing, projects and notes",
+  "07-home":
+    "title=Anit Jha&description=DevOps, Tools %26 Automation Engineer at Apple&meta=Kubernetes · Crossplane · Go · React",
   "08-light":
     "title=Customising the GRUB theme on Fedora&type=Blog&description=A step by step guide to replacing the default boot menu with a clean, readable theme that survives kernel updates.&meta=Oct 15, 2023 · 8 min read&theme=light",
   "09-legacy": "title=Blog&type=blogs",
   "10-light-image":
     "title=SoftlyDrawn&type=Project&description=A portfolio and commissions site for an illustrator, built to feel like a sketchbook.&meta=2026 · Astro, React, TypeScript&image=https://anit.dev/cover.jpg&theme=light",
-  "11-light-profile":
-    "variant=profile&theme=light&description=Software engineer building calm, fast interfaces for the web.&meta=Writing, projects and notes",
+  "11-light-home":
+    "title=Anit Jha&theme=light&description=DevOps, Tools %26 Automation Engineer at Apple&meta=Kubernetes · Crossplane · Go · React",
   "12-bad-image": "title=Untrusted host is ignored&type=Project&image=https://evil.example.com/x.png",
   "14-playground-meta":
     "title=Open Graph images, rendered from a URL&type=Tool&description=Blog posts, projects and the home page all share one calm, on brand card.&meta=og.anit.dev",
@@ -62,7 +62,7 @@ async function main() {
     if (only && !name.includes(only)) continue;
     const params = parseParams(new URLSearchParams(query));
     // Simulate the server-side fetch with a local file for allowed hosts.
-    const imageSrc = params.image && params.variant === "default" ? coverSrc : undefined;
+    const imageSrc = params.image ? coverSrc : undefined;
     const started = performance.now();
     const png = await renderPng(params, { imageSrc });
     const file = join(outDir, `${name}.png`);

@@ -8,7 +8,6 @@ const PARAMS: Array<[string, string]> = [
   ["description", `Supporting line under the title, up to ${LIMITS.description} characters.`],
   ["meta", "Footer detail, such as a date and reading time or a stack."],
   ["image", "Absolute https URL of a PNG, JPEG or GIF on anit.dev, shown as a framed thumbnail."],
-  ["variant", "default or profile. Profile shows the portrait, with description as the role line."],
   ["theme", "dark (default) or light."],
 ];
 

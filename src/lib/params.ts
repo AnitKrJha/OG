@@ -1,7 +1,5 @@
 import type { ThemeName } from "./theme";
 
-export type Variant = "default" | "profile";
-
 export interface CardParams {
   title: string;
   type?: string;
@@ -9,7 +7,6 @@ export interface CardParams {
   meta?: string;
   /** Validated absolute https URL on an allowed host. Not fetched yet. */
   image?: string;
-  variant: Variant;
   theme: ThemeName;
 }
 
@@ -68,10 +65,7 @@ export function allowedImageUrl(value: string | null | undefined) {
 }
 
 export function parseParams(searchParams: URLSearchParams): CardParams {
-  const variant: Variant =
-    searchParams.get("variant")?.trim().toLowerCase() === "profile"
-      ? "profile"
-      : "default";
+  // `variant` is no longer used; old `variant=profile` URLs render the default card.
   const theme: ThemeName =
     searchParams.get("theme")?.trim().toLowerCase() === "light"
       ? "light"
@@ -83,7 +77,6 @@ export function parseParams(searchParams: URLSearchParams): CardParams {
     description: clamp(searchParams.get("description"), LIMITS.description),
     meta: clamp(searchParams.get("meta"), LIMITS.meta),
     image: allowedImageUrl(searchParams.get("image")),
-    variant,
     theme,
   };
 }

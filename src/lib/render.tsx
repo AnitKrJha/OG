@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { Card, OG_HEIGHT, OG_WIDTH, ogFonts, type CardAssets } from "./card";
 import type { CardParams } from "./params";
-import { loadFonts, loadPortrait } from "./assets";
+import { loadFonts } from "./assets";
 
 export const CACHE_CONTROL = "public, immutable, no-transform, max-age=31536000";
 
@@ -14,13 +14,10 @@ export async function renderPng(
   params: CardParams,
   assets: CardAssets = {},
 ): Promise<ArrayBuffer> {
-  const [fonts, portraitSrc] = await Promise.all([
-    loadFonts(),
-    params.variant === "profile" ? loadPortrait() : Promise.resolve(undefined),
-  ]);
+  const fonts = await loadFonts();
 
   const draw = (extra: CardAssets) =>
-    new ImageResponse(<Card {...params} {...extra} portraitSrc={portraitSrc} />, {
+    new ImageResponse(<Card {...params} {...extra} />, {
       width: OG_WIDTH,
       height: OG_HEIGHT,
       fonts: ogFonts(fonts),
