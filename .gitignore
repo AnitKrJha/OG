@@ -33,3 +33,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# The global gitignore excludes fonts and images. The build needs these.
+!src/assets/
+!src/assets/**
+!public/**
+!src/app/**/*.ico
+!src/app/**/*.png
+!src/app/**/*.svg
+!scripts/fixtures/**
