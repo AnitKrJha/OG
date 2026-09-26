@@ -234,6 +234,7 @@ code {
 
 .form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.15rem;
   padding: 1.25rem;
 }
@@ -276,12 +277,13 @@ code {
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem;
 }
 
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.4rem;
   min-width: 0;
   margin: 0;
@@ -405,7 +407,13 @@ input:disabled {
   position: sticky;
   top: 1.5rem;
   display: grid;
+  /* One column pinned to the available width. With an implicit auto column, the long URL in
+     .url-bar sets the column to its full one-line width and the preview balloons past the page. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.85rem;
+  min-width: 0;
+}
+.preview > * {
   min-width: 0;
 }
 
@@ -442,6 +450,7 @@ input:disabled {
 
 .url-bar {
   display: flex;
+  min-width: 0;
   gap: 0.5rem;
   align-items: stretch;
   padding: 0.35rem;
@@ -520,7 +529,7 @@ input:disabled {
 
 .param-row {
   display: grid;
-  grid-template-columns: 8.5rem 1fr;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
   gap: 1rem;
   padding-block: 0.8rem;
   border-top: 1px solid var(--line);
